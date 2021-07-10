@@ -34,7 +34,12 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Full Name</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" class="form-control <?php if (form_error('name')) echo 'is-invalid'; ?>" name="name" id="txt-name" value="<?php echo set_value('name'); ?>">
+                                        <input 
+                                            type="text"
+                                            class="form-control <?php if (form_error('name')) echo 'is-invalid'; ?>"
+                                            name="name" id="txt-name"
+                                            value="<?php echo set_value('name'); ?>"
+                                        />
                                         <div class="invalid-feedback">
                                             <?php echo form_error('name'); ?>
                                         </div>
