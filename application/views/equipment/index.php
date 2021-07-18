@@ -26,8 +26,13 @@
                         </div>
                         <div class="card-body">
 
+                            <button class="btn btn-primary" id="select-all">Select All</button>
+                            <button class="btn btn-danger" id="delete-all">Delete Selected</button>
+
+                            <div class="clearfix mb-3"></div>
+
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table4">
+                                <table class="table table-striped" id="table1">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -42,7 +47,7 @@
                                     <tbody>
                                         <?php $no=1; ?>
                                         <?php foreach ($equipments as $equipment) : ?>
-                                            <tr>
+                                            <tr data-id="<?= $equipment['id'] ?>">
                                                 <td><?= $no++; ?></td>
                                                 <td><?php echo $equipment['id']; ?>
                                                     <div class="table-links notexport">

@@ -11,16 +11,20 @@ class Equipment extends CI_Controller
 
     public function index()
     {
-        $cari = $this->input->post('cari');
+        if ( !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' )
+        {
+            $ids = $this->input->post('ids');
+            $result = true;
+            foreach ($ids as $id) $result = $result AND $this->equipment->delete($id);
+            echo $result;
+            return $result;
+        }
+
         $data['title'] = "Equipment";
         $data['sidebar'] = "Equipment";
 
-        if ($cari) {
-            $data['equipments'] = $this->equipment->getWhere($cari);
-            $data['keyword'] = $cari;
-        } else {
-            $data['equipments'] = $this->equipment->getAll();
-        }
+        $data['equipments'] = $this->equipment->getAll();
+
         $this->load->view('layout/header', $data);
         $this->load->view('layout/navbar');
         $this->load->view('layout/sidebar');
