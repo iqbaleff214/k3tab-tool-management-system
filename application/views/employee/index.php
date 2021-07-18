@@ -47,7 +47,7 @@
                                     <tbody>
                                         <?php $no=1; ?>
                                         <?php foreach ($employees as $employee) : ?>
-                                            <tr>
+                                            <tr data-id="<?= $employee['id'] ?>">
                                                 <td><?= $no++; ?></td>
                                                 <td><?php echo $employee['id']; ?>
                                                     <div class="table-links notexport">
