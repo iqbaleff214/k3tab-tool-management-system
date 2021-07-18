@@ -16,17 +16,20 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped mb-0">
+                                <table class="table table-striped mb-0 table3">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Date</th>
                                             <th>Employee</th>
                                             <th>Equipment</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $no=1; ?>
                                         <?php foreach ($reports as $report) : ?>
                                             <tr>
+                                                <td><?= $no++; ?></td>
                                                 <td><?php echo date("d/m/Y", strtotime($report['booking_date'])); ?></td>
                                                 <td>
                                                     <a href="<?php echo base_url('employee/view/' . $report['employee']); ?>">
@@ -67,17 +70,20 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped mb-0">
+                                <table class="table table-striped mb-0 table3">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Date</th>
                                             <th>Employee</th>
                                             <th>Equipment</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $no=1; ?>
                                         <?php foreach ($reports_return as $report) : ?>
                                             <tr>
+                                                <td><?= $no++; ?></td>
                                                 <td><?php echo date("d/m/Y", strtotime($report['return_date'])); ?></td>
                                                 <td>
                                                     <a href="<?php echo base_url('employee/view/' . $report['employee']); ?>">

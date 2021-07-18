@@ -21,7 +21,7 @@ class Dashboard extends CI_Controller
 
 		$data['graphs'] = $this->dashboard->getUsedEquipment();
 		$data['monthGraphs'] = $this->dashboard->getMonthChart();
-		$data['equipments'] = $this->dashboard->getInUseEquipment();
+		$data['equipments'] = $this->dashboard->getRequestedEquipment();
 
 
 		$this->load->view('layout/header', $data);
@@ -77,10 +77,10 @@ class Dashboard extends CI_Controller
 	{
 		$this->load->model('Request_model', 'request');
 		if ($time == "today") {
-			$history = $this->request->getAllRequestHistory("semua", $time)->result_array();
+			$history = $this->request->getAllRequestHistory($time)->result_array();
 			$filename = "TMS_-_equipment_request_" . date('d_m_Y', time());
 		} else {
-			$history = $this->request->getAllRequestHistory("semua", null)->result_array();
+			$history = $this->request->getAllRequestHistory(null)->result_array();
 			$filename = "TMS_-_equipment_request_history";
 		}
 		$spreadsheet = new Spreadsheet();

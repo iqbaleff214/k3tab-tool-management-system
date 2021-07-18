@@ -6,7 +6,7 @@ class Request_model extends CI_Model
 
     private $table = 'transaction';
 
-    public function getAllRequestHistory($limit, $start)
+    public function getAllRequestHistory($start=null)
     {
         $this->db->select('transaction.*');
         $this->db->select('equipment.description, equipment.manufacture, equipment.material, equipment.type, equipment.unit, equipment.toolbox');
@@ -18,10 +18,20 @@ class Request_model extends CI_Model
         if ($start === "today") {
             $this->db->where("transaction.booking_date >= curdate()");
             $this->db->where("transaction.return_date <= curdate()");
-        } else if ($limit > 0 && $start >= 0) {
-            $this->db->limit($limit, $start);
         }
         return $this->db->get();
+    }
+
+    public function getAllRequestHistoryAvailable()
+    {
+        $this->db->where('deleted IS NULL');
+        return $this->getAllRequestHistory();
+    }
+
+    public function deleteRequest($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update($this->table, ['deleted' => 1]);
     }
 
     public function countAllRequestHistory()

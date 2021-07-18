@@ -26,23 +26,11 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="float-right">
-                                <form method="post" action="<?php echo base_url('employee'); ?>">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" name="cari">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="clearfix mb-3"></div>
-
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
+                                <table class="table table-striped" id="table4">
+                                    <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Employee Id</th>
                                             <th>Full Name</th>
                                             <th>Class</th>
@@ -50,10 +38,14 @@
                                             <th>Email</th>
                                             <th>Phone Number / Whatsapp</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
                                         <?php foreach ($employees as $employee) : ?>
                                             <tr>
+                                                <td><?= $no++; ?></td>
                                                 <td><?php echo $employee['id']; ?>
-                                                    <div class="table-links">
+                                                    <div class="table-links notexport">
                                                         <a href="<?php echo base_url('employee/view/' . $employee['id']); ?>">View</a>
                                                         <div class="bullet"></div>
                                                         <a href="<?php echo base_url('employee/edit/' . $employee['id']); ?>">Edit</a>

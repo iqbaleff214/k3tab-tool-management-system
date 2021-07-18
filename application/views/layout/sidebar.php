@@ -7,14 +7,9 @@
             <a href="<?php echo base_url(); ?>">TMS</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header text-dark">Dashboard</li>
-            <li class="nav-item dropdown <?php if ($title == "Dashboard" || $title == "Daily Report") echo "active"; ?>">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
-                <ul class="dropdown-menu">
-                    <li class="<?php if ($sidebar == "Dashboard") echo "active"; ?>"><a class="nav-link" href="<?php echo base_url(); ?>"><i class="far fa-chart-bar"></i>General</a></li>
-                    <li class="<?php if ($sidebar == "Report") echo "active"; ?>"><a class="nav-link" href="<?php echo base_url('dashboard/report'); ?>"><i class="fas fa-file-excel"></i>Daily Report</a></li>
-                </ul>
-            </li>
+            <li class="menu-header text-dark">Equipment Request</li>
+            <li class="<?php if ($sidebar == "Dashboard") echo "active"; ?>"><a class="nav-link" href="<?php echo base_url(); ?>"><i class="fas fa-desktop"></i> <span>General</span></a></li>
+            <li class="<?php if ($sidebar == "Report") echo "active"; ?>"><a class="nav-link" href="<?php echo base_url('dashboard/report'); ?>"><i class="fas fa-file-excel"></i><span>Daily Report</span> </a></li>
             <li class="nav-item dropdown <?php if (($sidebar == "Employee") || ($sidebar == "Equipment") || ($sidebar == "Toolbox")) echo "active"; ?>">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-server"></i><span>Master Data</span></a>
                 <ul class="dropdown-menu">

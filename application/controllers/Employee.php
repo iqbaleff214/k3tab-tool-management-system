@@ -14,13 +14,8 @@ class Employee extends CI_Controller
         $cari = $this->input->post('cari');
         $data['title'] = "Employee";
         $data['sidebar'] = "Employee";
+        $data['employees'] = $this->employee->getAll();
 
-        if ($cari) {
-            $data['employees'] = $this->employee->getWhere($cari);
-            $data['keyword'] = $cari;
-        } else {
-            $data['employees'] = $this->employee->getAll();
-        }
         $this->load->view('layout/header', $data);
         $this->load->view('layout/navbar');
         $this->load->view('layout/sidebar');
@@ -98,7 +93,6 @@ class Employee extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('class', 'Class', 'trim|required');
         $this->form_validation->set_rules('birthdate', 'Birth Date', 'trim|required');
-        $this->form_validation->set_rules('email', 'Phone Number', 'trim|required|valid_email');
         $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required');
     }
 
@@ -111,16 +105,21 @@ class Employee extends CI_Controller
         $email = $this->input->post('email');
         $birthdate = $this->input->post('birthdate');
 
-        $data = [
-            'id' => $id,
-            'name' => $name,
-            'class' => $class,
-            'phone' => $phone,
-            'email' => $email,
-            'birthdate' => $birthdate,
-        ];
+        $create = null;
 
-        $create = $this->employee->add($data);
+        if (!strpos($id, ' ')) {
+            $data = [
+                'id' => $id,
+                'name' => $name,
+                'class' => $class,
+                'phone' => $phone,
+                'email' => $email,
+                'birthdate' => $birthdate,
+            ];
+    
+            $create = $this->employee->add($data);
+        }
+
         if ($create) {
             pesan("Data saved successfully", "success");
         } else {

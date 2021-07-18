@@ -19,6 +19,19 @@ class Dashboard_model extends CI_Model
         $this->db->where('status', "In Use");
         return $this->db->get("equipment")->result_array();
     }
+    
+    public function getRequestedEquipment()
+    {
+        $this->db->select('transaction.*');
+        $this->db->select('equipment.description, equipment.type, equipment.id as equipment_id, equipment.toolbox as equipment_toolbox, equipment.status as equipment_status');
+        $this->db->select('employee.name');
+        $this->db->from('transaction');
+        $this->db->join('equipment', 'equipment.id = transaction.equipment');
+        $this->db->join('employee', 'employee.id = transaction.employee');
+        $this->db->where('transaction.return_date IS NULL');
+        $this->db->order_by('transaction.id', 'DESC');
+        return $this->db->get()->result_array();
+    }
 
     public function getMonthChart()
     {

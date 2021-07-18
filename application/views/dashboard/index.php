@@ -22,43 +22,47 @@
                             <h4 class="text-warning">Used Equipments</h4>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
+                            <div class="">
+                                <table class="table table-striped table3">
+                                    <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Equipment Id</th>
                                             <th>Description</th>
-                                            <th>Manufacture</th>
-                                            <!-- <th>Material</th> -->
                                             <th>Type</th>
+                                            <th>Employee</th>
                                             <th>Status</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1; ?>
                                         <?php foreach ($equipments as $equipment) : ?>
                                             <tr>
-                                                <td><?php echo $equipment['id']; ?>
+                                                <td><?= $no++; ?></td>
+                                                <td><?php echo $equipment['equipment_id']; ?>
                                                     <div class="table-links">
-                                                        <a href="<?php echo base_url('equipment/view/' . $equipment['id']); ?>">View</a>
+                                                        <a href="<?php echo base_url('equipment/view/' . $equipment['equipment_id']); ?>">View</a>
                                                         <div class="bullet"></div>
-                                                        <a href="<?php echo base_url('equipment/edit/' . $equipment['id']); ?>">Edit</a>
+                                                        <a href="<?php echo base_url('equipment/edit/' . $equipment['equipment_id']); ?>">Edit</a>
                                                         <div class="bullet"></div>
-                                                        <a href="javascript:void(0)" data="<?php echo base_url('equipment/delete/' . $equipment['id']); ?>" class="delete-item">Trash</a>
+                                                        <a href="javascript:void(0)" data="<?php echo base_url('equipment/delete/' . $equipment['equipment_id']); ?>" class="delete-item">Trash</a>
                                                     </div>
                                                 </td>
                                                 <td><?php echo $equipment['description']; ?></td>
-                                                <td><?php echo $equipment['manufacture']; ?></td>
                                                 <td><?php echo $equipment['type']; ?></td>
-                                                <td>
-                                                    <?php if ($equipment['toolbox']) : ?>
+                                                <td><?php echo $equipment['name']; ?></td>
+                                                <td class="text-center">
+                                                    <?php if ($equipment['equipment_toolbox']) : ?>
                                                         <div class="badge badge-pill badge-info mb-1 float-right">Toolbox Only</div>
                                                     <?php else : ?>
-                                                        <?php if ($equipment['status'] == 'Available') : ?>
+                                                        <?php if ($equipment['equipment_status'] == 'Available') : ?>
                                                             <div class="badge badge-pill badge-success mb-1 float-right">Available</div>
-                                                        <?php elseif ($equipment['status'] == 'Maintenance') : ?>
+                                                        <?php elseif ($equipment['equipment_status'] == 'Maintenance') : ?>
                                                             <div class="badge badge-pill badge-warning mb-1 float-right">Maintenance</div>
-                                                        <?php elseif ($equipment['status'] == 'Broken') : ?>
+                                                        <?php elseif ($equipment['equipment_status'] == 'Broken') : ?>
                                                             <div class="badge badge-pill badge-danger mb-1 float-right">Broken</div>
                                                         <?php else : ?>
-                                                            <div class="badge badge-pill badge-primary mb-1 float-right"><?php echo $equipment['status']; ?></div>
+                                                            <div class="badge badge-pill badge-primary mb-1 float-right"><?php echo $equipment['equipment_status']; ?></div>
                                                         <?php endif; ?>
                                                     <?php endif; ?>
                                                 </td>
@@ -89,10 +93,11 @@
                             <h4 class="text-warning">Request Data</h4>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped mb-0">
+                            <div class="">
+                                <table class="table table-striped mb-0 table2">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Id</th>
                                             <th>Description</th>
                                             <th>Request</th>
@@ -101,8 +106,10 @@
                                     <tbody>
                                         <?php $equipments = ""; ?>
                                         <?php $values = null; ?>
+                                        <?php $no = 1; ?>
                                         <?php foreach ($graphs as $graph) : ?>
                                             <tr>
+                                                <td><?= $no++; ?></td>
                                                 <td><?php echo $graph['id']; ?></td>
                                                 <td><?php echo $graph['equipment']; ?></td>
                                                 <td><?php echo $graph['total']; ?></td>

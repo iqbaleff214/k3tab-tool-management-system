@@ -15,16 +15,20 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="text-warning">All <?php echo $title; ?></h4>
-                            <a href="<?php echo base_url('dashboard/exporthistory/0'); ?>" class="btn btn-warning">Download</a>
                         </div>
                         <div class="card-body">
+                            <a href="<?php echo base_url('dashboard/exporthistory/0'); ?>" class="btn btn-warning float-right">Download Excel Full</a>
 
+                            <button class="btn btn-primary" id="select-all">Select All</button>
+                            <button class="btn btn-danger" id="delete-all">Delete Selected</button>
+                            
                             <div class="clearfix mb-3"></div>
 
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
+                                <table class="table table-striped table-hover" id="table1">
+                                    <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Request</th>
                                             <th>Return</th>
                                             <th>Employee</th>
@@ -33,12 +37,15 @@
                                             <th>Equipment</th>
                                             <th>Condition</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
                                         <?php foreach ($equipments as $equipment) : ?>
-                                            <tr>
+                                            <tr data-id="<?= $equipment['id'] ?>">
+                                                <td><?= $no++; ?></td>
                                                 <td><?php echo date("d/m/Y", strtotime($equipment['booking_date'])); ?></td>
                                                 <td>
-                                                    <?php if ($equipment['return_date']) echo date("d/m/Y", strtotime($equipment['return_date']));
-                                                    else echo '-' ?>
+                                                    <?= ($equipment['return_date']) ? date("d/m/Y", strtotime($equipment['return_date'])) : '-' ?>
                                                 </td>
                                                 <td><a href="<?php echo base_url('employee/view/' . $equipment['employee']); ?>"><?php echo $equipment['name']; ?></a></td>
 
@@ -54,7 +61,7 @@
                                                     <?php endif; ?>
                                                 </td>
                                                 <td><a href="<?php echo base_url('equipment/view/' . $equipment['equipment']); ?>"><?php echo $equipment['description']; ?></a></td>
-                                                <td><?php echo $equipment['status']; ?></td>
+                                                <td><?php echo $equipment['status'] ?: '-'; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -65,7 +72,6 @@
                                 </footer>
                             </div>
                         </div>
-                        <?php echo $pagination; ?>
                     </div>
                 </div>
             </div>

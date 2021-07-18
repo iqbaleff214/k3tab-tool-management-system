@@ -29,46 +29,18 @@ class Request extends CI_Controller
 
     public function history()
     {
+        if ( !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' )
+        {
+            $ids = $this->input->post('ids');
+            $result = true;
+            foreach ($ids as $id) $result = $result AND $this->request->deleteRequest($id);
+            echo $result;
+            return $result;
+        }
         $data['title'] = "Request History";
         $data['sidebar'] = "History";
-
-        //konfigurasi pagination
-        $config['base_url'] = base_url('request/history');
-        $config['total_rows'] = $this->request->countAllRequestHistory();
-        $config['per_page'] = 10;  //show record per halaman
-        $config["uri_segment"] = 3;  // uri parameter
-        $choice = $config["total_rows"] / $config["per_page"];
-        $config["num_links"] = floor($choice);
-
-        // Membuat Style pagination untuk BootStrap v4
-        $config['first_link']       = 'First';
-        $config['last_link']        = 'Last';
-        $config['next_link']        = 'Next';
-        $config['prev_link']        = 'Prev';
-
-        $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
-        $config['full_tag_close']   = '</ul></nav></div>';
-        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
-        $config['num_tag_close']    = '</span></li>';
-        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
-        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
-        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
-        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
-        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
-        $config['prev_tagl_close']  = '</span>Next</li>';
-        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
-        $config['first_tagl_close'] = '</span></li>';
-        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
-        $config['last_tagl_close']  = '</span></li>';
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
         //panggil function get_mahasiswa_list yang ada pada mmodel mahasiswa_model. 
-        $data['equipments'] = $this->request->getAllRequestHistory($config['per_page'], $data['page'])->result_array();
-
-        $data['pagination'] = $this->pagination->create_links();
+        $data['equipments'] = $this->request->getAllRequestHistoryAvailable()->result_array();
 
         $this->load->view('layout/header', $data);
         $this->load->view('layout/navbar');
@@ -288,6 +260,11 @@ class Request extends CI_Controller
                 }
             }
             $index++;
+        }
+
+        if (empty($dataEquipment)) {
+            pesan("Make sure equipments are in use or borrowed.", "error");
+            return redirect(current_url());
         }
 
         $return = $this->request->returnRequest($dataEquipment, $idEquipment, $idToolbox);

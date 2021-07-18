@@ -26,23 +26,11 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="float-right">
-                                <form method="post" action="<?php echo base_url('equipment'); ?>">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" name="cari">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="clearfix mb-3"></div>
-
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
+                                <table class="table table-striped" id="table4">
+                                    <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Equipment Id</th>
                                             <th>Description</th>
                                             <th>Manufacture</th>
@@ -50,15 +38,19 @@
                                             <th>Type</th>
                                             <th>Status</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
                                         <?php foreach ($equipments as $equipment) : ?>
                                             <tr>
+                                                <td><?= $no++; ?></td>
                                                 <td><?php echo $equipment['id']; ?>
-                                                    <div class="table-links">
-                                                        <a href="<?php echo base_url('equipment/view/' . $equipment['id']); ?>">View</a>
+                                                    <div class="table-links notexport">
+                                                        <a class="notexport" href="<?php echo base_url('equipment/view/' . $equipment['id']); ?>">View</a>
                                                         <div class="bullet"></div>
-                                                        <a href="<?php echo base_url('equipment/edit/' . $equipment['id']); ?>">Edit</a>
+                                                        <a class="notexport" href="<?php echo base_url('equipment/edit/' . $equipment['id']); ?>">Edit</a>
                                                         <div class="bullet"></div>
-                                                        <a href="javascript:void(0)" data="<?php echo base_url('equipment/delete/' . $equipment['id']); ?>" class="delete-item">Trash</a>
+                                                        <a href="javascript:void(0)" data="<?php echo base_url('equipment/delete/' . $equipment['id']); ?>" class="delete-item notexport">Trash</a>
                                                     </div>
                                                 </td>
                                                 <td><?php echo $equipment['description']; ?></td>

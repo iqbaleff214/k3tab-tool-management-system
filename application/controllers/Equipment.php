@@ -102,10 +102,6 @@ class Equipment extends CI_Controller
     {
         $this->form_validation->set_rules('id', 'Equipment ID', 'trim|required');
         $this->form_validation->set_rules('description', 'Description of Technical Object', 'trim|required');
-        $this->form_validation->set_rules('manufacture', 'Manufacture', 'trim|required');
-        $this->form_validation->set_rules('material', 'Material', 'trim|required');
-        $this->form_validation->set_rules('type', 'Type', 'trim|required');
-        $this->form_validation->set_rules('unit', 'Unit', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
     }
 
@@ -122,10 +118,10 @@ class Equipment extends CI_Controller
         $data = [
             'id' => $id,
             'description' => $description,
-            'manufacture' => $manufacture,
-            'material' => $material,
-            'type' => $type,
-            'unit' => $unit,
+            'manufacture' => $manufacture ?: '-',
+            'material' => $material ?: '-',
+            'type' => $type ?: '-',
+            'unit' => $unit ?: 'unit',
             'status' => $status,
         ];
 
@@ -141,21 +137,7 @@ class Equipment extends CI_Controller
 
     private function __update($id)
     {
-        $description = $this->input->post('description');
-        $manufacture = $this->input->post('manufacture');
-        $material = $this->input->post('material');
-        $type = $this->input->post('type');
-        $unit = $this->input->post('unit');
-        $status = $this->input->post('status');
-
-        $data = [
-            'description' => $description,
-            'manufacture' => $manufacture,
-            'material' => $material,
-            'type' => $type,
-            'unit' => $unit,
-            'status' => $status,
-        ];
+        $data = $this->input->post();
 
         $update = $this->equipment->update($id, $data);
         if ($update) {

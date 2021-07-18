@@ -26,30 +26,22 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="float-right">
-                                <form method="post" action="<?php echo base_url('toolbox'); ?>">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" name="cari">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-warning" type="submit"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="clearfix mb-3"></div>
-
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
+                                <table class="table table-striped" id="table4">
+                                    <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Toolbox Id</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th>Note</th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
                                         <?php foreach ($toolboxs as $toolbox) : ?>
                                             <tr>
+                                                <td><?= $no++; ?></td>
                                                 <td><?php echo $toolbox['id']; ?>
                                                     <div class="table-links">
                                                         <a href="<?php echo base_url('toolbox/view/' . $toolbox['id']); ?>">View</a>
