@@ -11,16 +11,19 @@ class Toolbox extends CI_Controller
 
     public function index()
     {
-        $cari = $this->input->post('cari');
+        if ( !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' )
+        {
+            $ids = $this->input->post('ids');
+            $result = true;
+            foreach ($ids as $id) $result = $result AND $this->toolbox->delete($id);
+            echo $result;
+            return $result;
+        }
+
         $data['title'] = "Toolbox";
         $data['sidebar'] = "Toolbox";
-
-        if ($cari) {
-            $data['toolboxs'] = $this->toolbox->getAll($cari);
-            $data['keyword'] = $cari;
-        } else {
-            $data['toolboxs'] = $this->toolbox->getAll();
-        }
+        $data['toolboxs'] = $this->toolbox->getAll();
+        
         $this->load->view('layout/header', $data);
         $this->load->view('layout/navbar');
         $this->load->view('layout/sidebar');
