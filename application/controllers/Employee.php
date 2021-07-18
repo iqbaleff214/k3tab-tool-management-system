@@ -11,7 +11,16 @@ class Employee extends CI_Controller
 
     public function index()
     {
-        $cari = $this->input->post('cari');
+        
+        if ( !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' )
+        {
+            $ids = $this->input->post('ids');
+            $result = true;
+            foreach ($ids as $id) $result = $result AND $this->employee->delete($id);
+            echo $result;
+            return $result;
+        }
+
         $data['title'] = "Employee";
         $data['sidebar'] = "Employee";
         $data['employees'] = $this->employee->getAll();
@@ -92,8 +101,6 @@ class Employee extends CI_Controller
         $this->form_validation->set_rules('id', 'Employee ID', 'trim|required');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('class', 'Class', 'trim|required');
-        $this->form_validation->set_rules('birthdate', 'Birth Date', 'trim|required');
-        $this->form_validation->set_rules('phone', 'Phone Number', 'trim|required');
     }
 
     private function __add()
@@ -112,9 +119,9 @@ class Employee extends CI_Controller
                 'id' => $id,
                 'name' => $name,
                 'class' => $class,
-                'phone' => $phone,
-                'email' => $email,
-                'birthdate' => $birthdate,
+                'phone' => $phone ?: '-',
+                'email' => $email ?: '-',
+                'birthdate' => $birthdate ?: '-',
             ];
     
             $create = $this->employee->add($data);

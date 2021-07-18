@@ -115,17 +115,20 @@ class Equipment extends CI_Controller
         $unit = $this->input->post('unit');
         $status = $this->input->post('status');
 
-        $data = [
-            'id' => $id,
-            'description' => $description,
-            'manufacture' => $manufacture ?: '-',
-            'material' => $material ?: '-',
-            'type' => $type ?: '-',
-            'unit' => $unit ?: 'unit',
-            'status' => $status,
-        ];
+        $create = null;
+        if (!strpos($id, ' ')) {
+            $data = [
+                'id' => $id,
+                'description' => $description,
+                'manufacture' => $manufacture ?: '-',
+                'material' => $material ?: '-',
+                'type' => $type ?: '-',
+                'unit' => $unit ?: 'unit',
+                'status' => $status,
+            ];
+            $create = $this->equipment->add($data);
+        }
 
-        $create = $this->equipment->add($data);
         if ($create) {
             pesan("Data saved successfully", "success");
         } else {

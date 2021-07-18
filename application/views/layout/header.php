@@ -183,7 +183,7 @@
                 }).then((result) => {
                     if (result.value && deleted_history.length >= 1) {
                         $.ajax({
-                            url: "<?= base_url('request/history') ?>",
+                            url: "<?= current_url() ?>",
                             type: 'post',
                             data: {
                                 ids: deleted_history
