@@ -7,7 +7,7 @@
             <a href="<?php echo base_url(); ?>">TMS</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header text-dark">Equipment Request</li>
+            <!-- <li class="menu-header text-dark">Equipment Request</li> -->
             <li class="<?php if ($sidebar == "Dashboard") echo "active"; ?>"><a class="nav-link" href="<?php echo base_url(); ?>"><i class="fas fa-desktop"></i> <span>General</span></a></li>
             <li class="<?php if ($sidebar == "Report") echo "active"; ?>"><a class="nav-link" href="<?php echo base_url('dashboard/report'); ?>"><i class="fas fa-file-excel"></i><span>Daily Report</span> </a></li>
             <li class="nav-item dropdown <?php if (($sidebar == "Employee") || ($sidebar == "Equipment") || ($sidebar == "Toolbox")) echo "active"; ?>">
