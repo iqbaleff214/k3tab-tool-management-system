@@ -70,8 +70,25 @@ class Request extends CI_Controller
 
     public function ajaxEquipment($id)
     {
-        $data = $this->db->select('transaction.*, equipment.description as description, employee.name as name, equipment.toolbox as tool')->join('equipment', 'equipment.id=transaction.equipment')->join('employee', 'employee.id=transaction.employee')->where('transaction.equipment', $id)->where('transaction.return_date IS NULL')->get('transaction')->row_array();
-        echo $data ? json_encode($data) : null;
+        $data = $this->db->select('transaction.*, equipment.description as description, employee.name as name, equipment.toolbox as tool')->join('equipment', 'equipment.id=transaction.equipment')->join('employee', 'employee.id=transaction.employee')->where('transaction.equipment', $id)->where('transaction.return_date IS NULL')->where('equipment.toolbox IS NULL')->get('transaction')->row_array();
+        
+        if (!$data) {
+            $transaction = $this->db->select('transaction.id as id')->join('equipment', 'equipment.toolbox=toolbox.id')->join('transaction', 'equipment.id=transaction.equipment')->where('transaction.return_date IS NULL')->where('toolbox.id', $id)->get('toolbox')->result_array();
+            $id = '';
+            foreach ($transaction as $item) $id .= "#".$item['id'];
+            if ($transaction) {
+                $data = $this->db->select('transaction.*, toolbox.description as description, employee.name as name, equipment.toolbox as tool')->join('equipment', 'equipment.id=transaction.equipment')->join('toolbox', 'toolbox.id=equipment.toolbox')->join('employee', 'employee.id=transaction.employee')->where('transaction.id', $transaction[0]['id'])->where('transaction.return_date IS NULL')->where('equipment.toolbox IS NOT NULL')->get('transaction')->row_array();
+                $data['id_transaksi'] = $id;
+            } else {
+                $data = null;
+            }
+        }
+        
+        if (!$data) {
+            echo false;
+        }
+
+        echo json_encode($data);
     }
 
     public function findRequest()

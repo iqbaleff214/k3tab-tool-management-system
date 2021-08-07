@@ -115,8 +115,15 @@
                             tr.find('.input_description').val(res.description);
                             tr.find('.input_request').val(res.booking_date);
                             tr.find('.input_employee').val(res.name);
-                            tr.find('.input_tr_id').val(res.id);
-                            let tool = res.tool ? 'toolbox' : 'equipment';
+                            let tool, id;
+                            if (res.tool) {
+                                tool = 'toolbox';
+                                id = res.id_transaksi;
+                            } else {
+                                tool = 'equipment';
+                                id = res.id;
+                            }
+                            tr.find('.input_tr_id').val(id);
                             tr.find('.input_tool').val(tool);
 
                             addField();
