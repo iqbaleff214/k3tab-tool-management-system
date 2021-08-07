@@ -37,8 +37,6 @@ class Toolbox extends CI_Controller
         $data['sidebar'] = "Toolbox";
         $data['toolbox'] = $this->toolbox->get($id);
         $data['equipments'] = $this->toolbox->getEquipments($id);
-        // $data['employee'] = $this->toolbox->getEmployee($id);
-        // $data['employees'] = $this->toolbox->getEmployeeHistory($id);
 
         $this->load->view('layout/header', $data);
         $this->load->view('layout/navbar');

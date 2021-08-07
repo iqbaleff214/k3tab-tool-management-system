@@ -32,7 +32,7 @@
                                 <?php endif; ?>
                                 <div class="table-responsive table-invoice">
                                     <table class="table table-striped">
-                                        <tbody id="equipment-form">
+                                        <thead id="equipment-form">
                                             <tr>
                                                 <th>Equipment Id</th>
                                                 <th>Description</th>
@@ -41,6 +41,8 @@
                                                 <th>Employee</th>
                                                 <th>Condition</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             <tr>
                                                 <td>
                                                     <div class="form-group pt-2">

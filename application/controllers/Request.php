@@ -37,6 +37,7 @@ class Request extends CI_Controller
             echo $result;
             return $result;
         }
+
         $data['title'] = "Request History";
         $data['sidebar'] = "History";
         //panggil function get_mahasiswa_list yang ada pada mmodel mahasiswa_model. 
@@ -62,9 +63,15 @@ class Request extends CI_Controller
             $this->load->view('layout/header', $data);
             $this->load->view('layout/navbar');
             $this->load->view('layout/sidebar');
-            $this->load->view('request/return');
+            $this->load->view('request/return-new');
             $this->load->view('layout/footer');
         }
+    }
+
+    public function ajaxEquipment($id)
+    {
+        $data = $this->db->select('transaction.*, equipment.description as description, employee.name as name, equipment.toolbox as tool')->join('equipment', 'equipment.id=transaction.equipment')->join('employee', 'employee.id=transaction.employee')->where('transaction.equipment', $id)->where('transaction.return_date IS NULL')->get('transaction')->row_array();
+        echo $data ? json_encode($data) : null;
     }
 
     public function findRequest()
@@ -170,7 +177,6 @@ class Request extends CI_Controller
         // $this->form_validation->set_rules('id[]', 'ID', 'trim|required');
         // $this->form_validation->set_rules('name[]', 'ID', 'trim|required');
     }
-
 
     private function __request()
     {
