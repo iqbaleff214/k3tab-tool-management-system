@@ -144,7 +144,7 @@
                             <td>
                                 <div class="form-group pt-2">
                                     <div class="input-group">
-                                        <input type="text" class="form-control input_id" name="id[]" autocomplete="off" required autofocus>
+                                        <input type="text" class="form-control input_id" name="id[]" autocomplete="off" autofocus>
                                         <div class="input-group-append">
                                             <button class="btn btn-danger btn-delete-row" type="button"><i class="fas fa-trash-alt"></i></button>
                                         </div>
